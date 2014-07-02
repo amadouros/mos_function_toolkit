@@ -9,9 +9,13 @@
  * @lastEditedBy    Arika Prime
  */
 
-
-
-
+/**
+* Converts CSV to PHP Array
+*
+* @csv  String, CSV string that needs to be turned into a php Array
+*
+* @r    Array, an array version of the csv that was inputted into this function
+*/
 function csvToArray($csv, $delimiter = ',', $enclosure = '"', $escape = '\\', $terminator = "\n") 
 { 
     $r = array(); 
@@ -31,6 +35,13 @@ function csvToArray($csv, $delimiter = ',', $enclosure = '"', $escape = '\\', $t
     return $r; 
 }
 
+/**
+* Converts PHP Array into CSV String
+*
+* @results  Array, PHP array that needs to be turned into a csv string
+*
+* @output   String, a csv string version of the php array that was inputted into this function
+*/
 function arrayToCsv($results)
 {
     $output = array();
@@ -57,6 +68,13 @@ function arrayToCsv($results)
     return $output;
 }
 
+/**
+* Loads a drupal block in a single function call
+*
+* @blockId  String, drupal block ID
+*
+* @output   Object, a drupal rendered object that can be printed in a tpl.php file
+*/
 function loadBlock($blockId)
 {
     $block = block_load('views', $blockId);
@@ -65,6 +83,15 @@ function loadBlock($blockId)
     return $output;
 }
 
+/**
+* Loads a drupal field in a single function call, this can also handle taxonomy terms
+* Please note that this only works for single input fields
+*
+* @node  Object, the current node that is being loaded
+* @fieldName  String, drupal field machine name
+*
+* @value   String, The value of the field
+*/
 function getFieldValue($node, $fieldName)
 {
     $value = array();
@@ -88,8 +115,16 @@ function getFieldValue($node, $fieldName)
     return $value;
 }
 
-
-function get_field_collection_value($node, $field_collection_name) 
+/**
+* Loads a drupal field collection in a single function call
+*
+* @node  Object, the current node that is being loaded
+* @fieldCollectionName  String, drupal field collection machine name
+*
+* @value_array   Array, The value of the field collection. This will 
+                return value in the order that they are entered in Drupal Admin
+*/
+function getFieldCollectionValue($node, $fieldCollectionName) 
 {
     $valueArray = array();
     $fieldCollection = field_get_items('node', $node, $fieldCollectionName);
@@ -99,7 +134,7 @@ function get_field_collection_value($node, $field_collection_name)
             $fieldName = array(); 
             
             // Parse array to pull out the field labels of the fields within the field collection
-            $fieldCollectionItemIndex = $fieldCollectionKey +1; // the index for where the field names are located is the $fieldCollectionKey plus one	
+            $fieldCollectionItemIndex = $fieldCollectionKey +1;             
             foreach ($field['entity']['field_collection_item'] as $id => $fieldCollection){
                 foreach($fieldCollection as $key => $value){
                     if (!preg_match("/\#/", $key)){
@@ -120,6 +155,14 @@ function get_field_collection_value($node, $field_collection_name)
     return $value_array;
 }
 
+/**
+* Writes file to a location a single function call
+*
+* @writeObject  Multi Data Type, the thing that will be written to a file
+* @writeLocation  String, the path of the file
+*
+* No Return Value
+*/
 function writeToLocation($writeObject, $writeLocation)
 {
     $locationPointer = fopen ($writeLocation, "w");
