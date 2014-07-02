@@ -1,0 +1,9 @@
+<?php
+/**
+ * @file
+ * A module that provides commonly used functions throughout MoS.org
+ */
+
+include_once('mos_function_toolkit.functions.inc'); 
+
+include_once('mos_function_toolkit.global-variables.inc'); 
