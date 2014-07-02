@@ -1,10 +1,19 @@
 <?php
 /**
- * @file
- * A module that provides commonly used functions throughout MoS.org
+ * Functions for a module that provides commonly used functionality throughout MoS.org
+ *
+ * @project			mos_function_toolkit
+ * @version			0.1
+ * @author			Arika Prime
+ * @lastEdited		07/02/2014
+ * @lastEditedBy	Arika Prime
  */
 
-function csv_to_array($csv, $delimiter = ',', $enclosure = '"', $escape = '\\', $terminator = "\n") { 
+
+
+
+function csv_to_array($csv, $delimiter = ',', $enclosure = '"', $escape = '\\', $terminator = "\n") 
+{ 
     $r = array(); 
     $rows = explode($terminator,trim($csv)); 
     $names = array_shift($rows); 
@@ -20,7 +29,8 @@ function csv_to_array($csv, $delimiter = ',', $enclosure = '"', $escape = '\\', 
     return $r; 
 }
 
-function array_to_csv($results){
+function array_to_csv($results)
+{
     $output = array();
     foreach ($results[0] as $key=>$value ) {
     	if ($key != "CreatedDate"){
@@ -41,12 +51,12 @@ function array_to_csv($results){
    
     $all_rows = implode("\n", $row);
     $output[1] = $all_rows;
-    //var_dump($output);
     $output = implode("\n", $output);
     return $output;
 }
 
-function load_block($block_id){
+function load_block($block_id)
+{
 	$block = block_load('views', $block_id);
 	$content = _block_get_renderable_array(_block_render_blocks(array($block)));
 	$output = drupal_render($content);
@@ -54,7 +64,8 @@ function load_block($block_id){
 }
 
 
-function get_field_value($node, $field_name){
+function get_field_value($node, $field_name)
+{
 	$value = array();
 	$field = field_get_items('node', $node, $field_name);
 	if(!empty($field)){
@@ -77,7 +88,8 @@ function get_field_value($node, $field_name){
 }
 
 
-function get_field_collection_value($node, $field_collection_name) {
+function get_field_collection_value($node, $field_collection_name) 
+{
 	$value_array = array();
 	$field_collection = field_get_items('node', $node, $field_collection_name);
 	if (!empty($field_collection)){
@@ -100,17 +112,15 @@ function get_field_collection_value($node, $field_collection_name) {
 				// store values in array which will be returned at end of function
 				foreach ($field_name as $index => $name){
 					$value_array[$field_collection_key][$name] = $field_wrapper->$name->value();
-				}
-				
+				}		
 		    }
-			
-		}
-			
+		}		
 	}
 	return $value_array;
 }
 
-function write_to_location($write_object, $write_location){
+function write_to_location($write_object, $write_location)
+{
 	$location_pointer = fopen ($write_location, "w");
 	fwrite ($location_pointer, $write_object);
 	fclose ($location_pointer);
